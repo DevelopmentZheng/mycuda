@@ -1,0 +1,19 @@
+TEST_SOURCE = zhello_cuda.cu
+
+TARGETBIN := ./zzhello_cuda_multi_file
+
+CC = /usr/local/cuda/bin/nvcc
+
+
+$(TARGETBIN): zhello_cuda1.o
+	$(CC)  $(TEST_SOURCE) zhello_cuda1.o -o $(TARGETBIN)
+
+zhello_cuda1.o:zhello_cuda1.cu
+	$(CC) --device-c zhello_cuda1.cu -o zhello_cuda1.o
+
+
+.PHONY:clean
+clean:
+	-rm -rf $(TARGETBIN)
+	-rm -rf *.o
+    
